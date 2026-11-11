@@ -1,29 +1,579 @@
-import Image from "next/image";
+
+"use client";
+
+import { useState } from "react";
+
+const movies = [
+  {
+    title: "The Last Voyage",
+    year: "2024",
+    rating: "8.5",
+    genre: "Adventure",
+    image:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600",
+    description:
+      "การเดินทางครั้งสุดท้ายสู่โลกแห่งการผจญภัย เรื่องราวที่เต็มไปด้วยความลึกลับและความตื่นเต้น",
+  },
+  {
+    title: "Inside Dream",
+    year: "2023",
+    rating: "8.2",
+    genre: "Romance",
+    image:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600",
+    description:
+      "เรื่องราวความรักและความทรงจำที่แสนงดงาม",
+  },
+  {
+    title: "Shadow World",
+    year: "2024",
+    rating: "8.7",
+    genre: "Action",
+    image:
+      "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=600",
+    description:
+      "โลกที่เต็มไปด้วยความลับและการต่อสู้เพื่อความอยู่รอด",
+  },
+  {
+    title: "Love in Time",
+    year: "2023",
+    rating: "8.3",
+    genre: "Romance",
+    image:
+      "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600",
+    description:
+      "ความรักที่ก้าวข้ามผ่านกาลเวลาและอุปสรรค",
+  },
+];
+
+const categories = [
+  "ทั้งหมด",
+  "Action",
+  "Adventure",
+  "Romance",
+  "Drama",
+];
 
 export default function Home() {
+  const [page, setPage] = useState("home");
+  const [category, setCategory] = useState("ทั้งหมด");
+  const [search, setSearch] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState(movies[0]);
+  const [favorites, setFavorites] = useState<string[]>([]);
+
+  const filteredMovies = movies.filter((movie) => {
+    const matchCategory =
+      category === "ทั้งหมด" || movie.genre === category;
+
+    const matchSearch = movie.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    return matchCategory && matchSearch;
+  });
+
+  const toggleFavorite = (title: string) => {
+    setFavorites((prev) =>
+      prev.includes(title)
+        ? prev.filter((item) => item !== title)
+        : [...prev, title]
+    );
+  };
+
+  const navItems = [
+    { id: "home", icon: "⌂", label: "หน้าหลัก" },
+    { id: "search", icon: "⌕", label: "ค้นหา" },
+    { id: "saved", icon: "▣", label: "รายการโปรด" },
+    { id: "profile", icon: "♙", label: "โปรไฟล์" },
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <main className="min-h-screen bg-[#030914] text-white selection:bg-blue-500">
+
+      {/* Background */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-40 left-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] rounded-full" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 blur-[130px] rounded-full" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-5 md:px-10 py-6">
+
+        {/* HEADER */}
+        <header className="flex items-center justify-between mb-10">
+
+          <div
+            onClick={() => setPage("home")}
+            className="flex items-center gap-3 cursor-pointer"
+          >
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-400 to-blue-700 flex items-center justify-center text-2xl shadow-lg shadow-blue-500/20">
+              🎬
+            </div>
+
+            <div>
+              <h1 className="text-2xl font-black tracking-tight">
+                Movie<span className="text-blue-400">Hub</span>
+              </h1>
+              <p className="text-[10px] text-gray-500 tracking-[3px]">
+                MOVIE STREAMING
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setPage("search")}
+              className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-blue-600 transition"
+            >
+              ⌕
+            </button>
+
+            <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10">
+              ♧
+            </button>
+
+            <button
+              onClick={() => setPage("profile")}
+              className="w-10 h-10 rounded-full bg-blue-600/20 border border-blue-400/40"
+            >
+              ♙
+            </button>
+          </div>
+        </header>
+
+        {/* HOME PAGE */}
+        {page === "home" && (
+          <>
+
+            {/* HERO */}
+            <section className="relative overflow-hidden rounded-3xl min-h-[400px] md:min-h-[470px] border border-white/10 group">
+
+              <img
+                src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1600"
+                alt="Featured movie"
+                className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition duration-700"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-r from-[#030914] via-[#030914]/75 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030914] via-transparent to-transparent" />
+
+              <div className="relative z-10 p-8 md:p-14 max-w-xl flex flex-col justify-center min-h-[400px] md:min-h-[470px]">
+
+                <span className="text-blue-400 text-xs font-bold tracking-[3px] mb-4">
+                  ✦ MOVIE OF THE DAY
+                </span>
+
+                <h2 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
+                  AVENGERS
+                  <br />
+                  <span className="text-blue-400">ENDGAME</span>
+                </h2>
+
+                <div className="flex gap-3 text-sm text-gray-300 mb-5">
+                  <span className="text-yellow-400">★ 9.0</span>
+                  <span>2024</span>
+                  <span>Action</span>
+                  <span>2 ชม. 15 นาที</span>
+                </div>
+
+                <p className="text-gray-300 text-sm leading-7 mb-7">
+                  สัมผัสประสบการณ์ภาพยนตร์สุดยิ่งใหญ่
+                  กับการผจญภัยที่คุณไม่ควรพลาด
+                  รับชมเรื่องราวสุดพิเศษได้ที่ MovieHub
+                </p>
+
+                <div className="flex gap-3 flex-wrap">
+                  <button
+                    onClick={() => {
+                      setSelectedMovie(movies[0]);
+                      setPage("detail");
+                    }}
+                    className="px-7 py-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 font-bold shadow-lg shadow-blue-600/30 transition"
+                  >
+                    ▶ รับชมภาพยนตร์
+                  </button>
+
+                  <button
+                    onClick={() => toggleFavorite("AVENGERS ENDGAME")}
+                    className="px-6 py-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition"
+                  >
+                    ♡ รายการโปรด
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            {/* CATEGORIES */}
+            <section className="mt-12">
+              <div className="flex justify-between items-center mb-5">
+                <h2 className="text-xl font-bold">
+                  หมวดหมู่
+                </h2>
+                <span className="text-blue-400 text-sm">
+                  ดูทั้งหมด →
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[
+                  { name: "Action", icon: "🎬" },
+                  { name: "Adventure", icon: "🏆" },
+                  { name: "Romance", icon: "♥" },
+                  { name: "Drama", icon: "🎭" },
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      setCategory(item.name);
+                      setPage("search");
+                    }}
+                    className="rounded-2xl p-5 bg-[#101d30] border border-white/5 hover:border-blue-400/60 hover:bg-blue-900/20 transition text-left"
+                  >
+                    <div className="text-3xl mb-3">
+                      {item.icon}
+                    </div>
+                    <div className="font-bold">{item.name}</div>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            {/* MOVIES */}
+            <section className="mt-12">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold">
+                  หนังมาใหม่
+                </h2>
+                <button
+                  onClick={() => setPage("search")}
+                  className="text-blue-400 text-sm"
+                >
+                  ดูทั้งหมด →
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+                {movies.map((movie) => (
+                  <MovieCard
+                    key={movie.title}
+                    movie={movie}
+                    favorite={favorites.includes(movie.title)}
+                    onFavorite={() => toggleFavorite(movie.title)}
+                    onClick={() => {
+                      setSelectedMovie(movie);
+                      setPage("detail");
+                    }}
+                  />
+                ))}
+              </div>
+            </section>
+          </>
+        )}
+
+        {/* SEARCH PAGE */}
+        {page === "search" && (
+          <section className="min-h-[650px]">
+
+            <h2 className="text-3xl font-black mb-2">
+              ค้นหาภาพยนตร์
+            </h2>
+
+            <p className="text-gray-500 mb-7">
+              ค้นพบภาพยนตร์เรื่องโปรดของคุณ
+            </p>
+
+            <div className="relative mb-7">
+              <span className="absolute left-5 top-3 text-xl text-blue-400">
+                ⌕
+              </span>
+
+              <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="ค้นหาชื่อภาพยนตร์..."
+                className="w-full bg-[#101d30] border border-white/10 rounded-2xl py-4 pl-14 pr-5 outline-none focus:border-blue-500"
+              />
+            </div>
+
+            <div className="flex gap-2 overflow-x-auto pb-4 mb-6">
+              {categories.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => setCategory(item)}
+                  className={`px-5 py-2 rounded-full whitespace-nowrap text-sm transition ${
+                    category === item
+                      ? "bg-blue-600 text-white"
+                      : "bg-[#152238] text-gray-400 hover:bg-blue-900"
+                  }`}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+              {filteredMovies.map((movie) => (
+                <MovieCard
+                  key={movie.title}
+                  movie={movie}
+                  favorite={favorites.includes(movie.title)}
+                  onFavorite={() => toggleFavorite(movie.title)}
+                  onClick={() => {
+                    setSelectedMovie(movie);
+                    setPage("detail");
+                  }}
+                />
+              ))}
+            </div>
+
+            {filteredMovies.length === 0 && (
+              <p className="text-center text-gray-500 py-20">
+                ไม่พบภาพยนตร์ที่ค้นหา
+              </p>
+            )}
+          </section>
+        )}
+
+        {/* DETAIL PAGE */}
+        {page === "detail" && (
+          <section className="max-w-5xl mx-auto">
+
+            <button
+              onClick={() => setPage("home")}
+              className="text-blue-400 mb-6"
+            >
+              ← กลับหน้าหลัก
+            </button>
+
+            <div className="relative h-[300px] md:h-[450px] rounded-3xl overflow-hidden">
+              <img
+                src={selectedMovie.image}
+                alt={selectedMovie.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030914] to-transparent" />
+
+              <button className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-blue-600/90 text-3xl shadow-xl shadow-blue-600/40 hover:scale-110 transition">
+                ▶
+              </button>
+            </div>
+
+            <div className="mt-7">
+              <h2 className="text-3xl md:text-5xl font-black mb-4">
+                {selectedMovie.title}
+              </h2>
+
+              <div className="flex gap-4 text-sm text-gray-400 mb-5">
+                <span className="text-yellow-400">
+                  ★ {selectedMovie.rating}
+                </span>
+                <span>{selectedMovie.year}</span>
+                <span>{selectedMovie.genre}</span>
+              </div>
+
+              <p className="text-gray-300 leading-8 max-w-2xl mb-7">
+                {selectedMovie.description}
+              </p>
+
+              <button
+                onClick={() => toggleFavorite(selectedMovie.title)}
+                className="px-7 py-3 rounded-full bg-blue-600 hover:bg-blue-500 transition"
+              >
+                {favorites.includes(selectedMovie.title)
+                  ? "♥ เพิ่มในรายการโปรดแล้ว"
+                  : "♡ เพิ่มในรายการโปรด"}
+              </button>
+            </div>
+          </section>
+        )}
+
+        {/* FAVORITES PAGE */}
+        {page === "saved" && (
+          <section className="min-h-[600px]">
+            <h2 className="text-3xl font-black mb-3">
+              รายการโปรด ♥
+            </h2>
+            <p className="text-gray-500 mb-8">
+              ภาพยนตร์ที่คุณบันทึกไว้
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+              {movies
+                .filter((movie) => favorites.includes(movie.title))
+                .map((movie) => (
+                  <MovieCard
+                    key={movie.title}
+                    movie={movie}
+                    favorite={true}
+                    onFavorite={() => toggleFavorite(movie.title)}
+                    onClick={() => {
+                      setSelectedMovie(movie);
+                      setPage("detail");
+                    }}
+                  />
+                ))}
+            </div>
+
+            {favorites.length === 0 && (
+              <div className="text-center py-24 text-gray-500">
+                <div className="text-5xl mb-4">♡</div>
+                ยังไม่มีภาพยนตร์ในรายการโปรด
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* PROFILE PAGE */}
+        {page === "profile" && (
+          <section className="max-w-xl mx-auto min-h-[600px]">
+
+            <div className="bg-[#101d30] border border-white/10 rounded-3xl p-8 text-center">
+              <div className="w-24 h-24 mx-auto rounded-full border-4 border-blue-500 overflow-hidden mb-4">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300"
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <h2 className="text-2xl font-bold">Siranya</h2>
+              <p className="text-gray-500 text-sm mt-1">
+                Member of MovieHub
+              </p>
+
+              <div className="grid grid-cols-3 gap-3 mt-8">
+                <div className="bg-[#192b44] rounded-2xl p-4">
+                  <div className="text-2xl text-blue-400">▶</div>
+                  <p className="font-bold mt-2">24</p>
+                  <p className="text-xs text-gray-500">รับชม</p>
+                </div>
+
+                <div className="bg-[#192b44] rounded-2xl p-4">
+                  <div className="text-2xl text-blue-400">♥</div>
+                  <p className="font-bold mt-2">{favorites.length}</p>
+                  <p className="text-xs text-gray-500">รายการโปรด</p>
+                </div>
+
+                <div className="bg-[#192b44] rounded-2xl p-4">
+                  <div className="text-2xl text-blue-400">◷</div>
+                  <p className="font-bold mt-2">48 ชม.</p>
+                  <p className="text-xs text-gray-500">เวลารับชม</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-7 bg-[#101d30] border border-white/10 rounded-3xl p-5">
+              {[
+                "♡ รายการโปรด",
+                "◷ ประวัติการรับชม",
+                "⚙ การตั้งค่า",
+                "♧ ช่วยเหลือและคำถามที่พบบ่อย",
+                "ⓘ เกี่ยวกับ MovieHub",
+              ].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => {
+                    if (item.includes("รายการโปรด")) setPage("saved");
+                  }}
+                  className="w-full flex justify-between py-4 border-b border-white/5 text-gray-300 hover:text-blue-400 transition"
+                >
+                  {item}
+                  <span>›</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* BOTTOM NAVIGATION */}
+        <nav className="fixed bottom-0 left-0 right-0 z-50 bg-[#07111f]/95 backdrop-blur-xl border-t border-white/10">
+          <div className="max-w-xl mx-auto flex justify-around py-3">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setPage(item.id)}
+                className={`flex flex-col items-center gap-1 min-w-16 transition ${
+                  page === item.id
+                    ? "text-blue-400"
+                    : "text-gray-500 hover:text-white"
+                }`}
+              >
+                <span className="text-2xl">{item.icon}</span>
+                <span className="text-[10px]">{item.label}</span>
+                {page === item.id && (
+                  <span className="w-5 h-0.5 bg-blue-400 rounded-full" />
+                )}
+              </button>
+            ))}
+          </div>
+        </nav>
+
+        <div className="h-24" />
+
+        {/* FOOTER */}
+        <footer className="text-center text-gray-600 text-xs py-5">
+          © 2026 MovieHub. All Rights Reserved.
+          <p className="mt-2">Your Movie Experience Starts Here.</p>
+        </footer>
+
+      </div>
+    </main>
+  );
+}
+
+function MovieCard({
+  movie,
+  favorite,
+  onFavorite,
+  onClick,
+}: {
+  movie: (typeof movies)[number];
+  favorite: boolean;
+  onFavorite: () => void;
+  onClick: () => void;
+}) {
+  return (
+    <div className="group min-w-0">
+      <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#101d30]">
+        <img
+          src={movie.image}
+          alt={movie.title}
+          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            siranya buabang
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-           ปวช.3/3
-          </p>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+
+        <button
+          onClick={onFavorite}
+          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur text-xl hover:bg-blue-600 transition"
+        >
+          {favorite ? "♥" : "♡"}
+        </button>
+
+        <button
+          onClick={onClick}
+          className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-400 shadow-lg transition"
+        >
+          ▶
+        </button>
+
+        <div className="absolute bottom-3 left-3">
+          <span className="text-yellow-400 text-xs">
+            ★ {movie.rating}
+          </span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          วิทยาลัยอาชีวศึกษาสุโขทัย
-        </div>
-      </main>
+      </div>
+
+      <button
+        onClick={onClick}
+        className="text-left mt-3 w-full"
+      >
+        <h3 className="font-bold text-sm group-hover:text-blue-400 transition truncate">
+          {movie.title}
+        </h3>
+        <p className="text-gray-500 text-xs mt-1">
+          {movie.year} · {movie.genre}
+        </p>
+      </button>
     </div>
   );
 }
