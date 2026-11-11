@@ -88,55 +88,59 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-[#030914] text-white selection:bg-blue-500">
+    <main className="min-h-[882px] min-h-[100dvh] w-full bg-[#030914] text-white selection:bg-blue-500 overflow-x-hidden">
 
-      {/* Background */}
+      {/* BACKGROUND */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-40 left-1/4 w-96 h-96 bg-blue-600/10 blur-[130px] rounded-full" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-500/10 blur-[130px] rounded-full" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-5 md:px-10 py-6">
+      {/* MOBILE CONTAINER 390 x 882 */}
+      <div className="relative w-full max-w-[390px] min-h-[882px] min-h-[100dvh] mx-auto px-5 pt-4 pb-28">
 
         {/* HEADER */}
-        <header className="flex items-center justify-between mb-10">
+        <header className="flex items-center justify-between mb-6">
 
           <div
             onClick={() => setPage("home")}
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex items-center gap-2 cursor-pointer"
           >
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-400 to-blue-700 flex items-center justify-center text-2xl shadow-lg shadow-blue-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-blue-700 flex items-center justify-center text-xl shadow-lg shadow-blue-500/20">
               🎬
             </div>
 
             <div>
-              <h1 className="text-2xl font-black tracking-tight">
+              <h1 className="text-xl font-black tracking-tight">
                 Movie<span className="text-blue-400">Hub</span>
               </h1>
-              <p className="text-[10px] text-gray-500 tracking-[3px]">
+
+              <p className="text-[9px] text-gray-500 tracking-[2px]">
                 MOVIE STREAMING
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+
             <button
               onClick={() => setPage("search")}
-              className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-blue-600 transition"
+              className="w-9 h-9 rounded-full bg-white/5 border border-white/10 hover:bg-blue-600 transition"
             >
               ⌕
             </button>
 
-            <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10">
+            <button className="w-9 h-9 rounded-full bg-white/5 border border-white/10">
               ♧
             </button>
 
             <button
               onClick={() => setPage("profile")}
-              className="w-10 h-10 rounded-full bg-blue-600/20 border border-blue-400/40"
+              className="w-9 h-9 rounded-full bg-blue-600/20 border border-blue-400/40"
             >
               ♙
             </button>
+
           </div>
         </header>
 
@@ -144,8 +148,8 @@ export default function Home() {
         {page === "home" && (
           <>
 
-            {/* HERO */}
-            <section className="relative overflow-hidden rounded-3xl min-h-[400px] md:min-h-[470px] border border-white/10 group">
+            {/* HERO BANNER */}
+            <section className="relative overflow-hidden rounded-2xl h-[285px] border border-white/10 group">
 
               <img
                 src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1600"
@@ -154,104 +158,126 @@ export default function Home() {
               />
 
               <div className="absolute inset-0 bg-gradient-to-r from-[#030914] via-[#030914]/75 to-transparent" />
+
               <div className="absolute inset-0 bg-gradient-to-t from-[#030914] via-transparent to-transparent" />
 
-              <div className="relative z-10 p-8 md:p-14 max-w-xl flex flex-col justify-center min-h-[400px] md:min-h-[470px]">
+              <div className="relative z-10 p-5 h-full flex flex-col justify-end">
 
-                <span className="text-blue-400 text-xs font-bold tracking-[3px] mb-4">
+                <span className="text-blue-400 text-[9px] font-bold tracking-[2px] mb-3">
                   ✦ MOVIE OF THE DAY
                 </span>
 
-                <h2 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
+                <h2 className="text-[30px] font-black mb-2 leading-tight">
                   AVENGERS
                   <br />
-                  <span className="text-blue-400">ENDGAME</span>
+                  <span className="text-blue-400">
+                    ENDGAME
+                  </span>
                 </h2>
 
-                <div className="flex gap-3 text-sm text-gray-300 mb-5">
-                  <span className="text-yellow-400">★ 9.0</span>
+                <div className="flex gap-2 text-[9px] text-gray-300 mb-3 flex-wrap">
+                  <span className="text-yellow-400">
+                    ★ 9.0
+                  </span>
                   <span>2024</span>
                   <span>Action</span>
                   <span>2 ชม. 15 นาที</span>
                 </div>
 
-                <p className="text-gray-300 text-sm leading-7 mb-7">
+                <p className="text-gray-300 text-[10px] leading-5 mb-4">
                   สัมผัสประสบการณ์ภาพยนตร์สุดยิ่งใหญ่
                   กับการผจญภัยที่คุณไม่ควรพลาด
                   รับชมเรื่องราวสุดพิเศษได้ที่ MovieHub
                 </p>
 
-                <div className="flex gap-3 flex-wrap">
+                <div className="flex gap-2">
+
                   <button
                     onClick={() => {
                       setSelectedMovie(movies[0]);
                       setPage("detail");
                     }}
-                    className="px-7 py-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 font-bold shadow-lg shadow-blue-600/30 transition"
+                    className="px-4 py-2.5 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-[10px] font-bold shadow-lg shadow-blue-600/30 transition"
                   >
                     ▶ รับชมภาพยนตร์
                   </button>
 
                   <button
                     onClick={() => toggleFavorite("AVENGERS ENDGAME")}
-                    className="px-6 py-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition"
+                    className="px-4 py-2.5 rounded-full bg-white/10 border border-white/20 text-[10px]"
                   >
                     ♡ รายการโปรด
                   </button>
+
                 </div>
               </div>
             </section>
 
             {/* CATEGORIES */}
-            <section className="mt-12">
-              <div className="flex justify-between items-center mb-5">
-                <h2 className="text-xl font-bold">
+            <section className="mt-6">
+
+              <div className="flex justify-between items-center mb-3">
+                <h2 className="text-base font-bold">
                   หมวดหมู่
                 </h2>
-                <span className="text-blue-400 text-sm">
+
+                <button
+                  onClick={() => setPage("search")}
+                  className="text-blue-400 text-[10px]"
+                >
                   ดูทั้งหมด →
-                </span>
+                </button>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-2">
+
                 {[
-                  { name: "Action", icon: "🎬" },
-                  { name: "Adventure", icon: "🏆" },
-                  { name: "Romance", icon: "♥" },
-                  { name: "Drama", icon: "🎭" },
+                  { name: "Action", icon: "🎬", label: "แอ็กชัน" },
+                  { name: "Adventure", icon: "🏆", label: "ผจญภัย" },
+                  { name: "Drama", icon: "🎭", label: "ดราม่า" },
+                  { name: "Romance", icon: "♥", label: "โรแมนติก" },
                 ].map((item) => (
+
                   <button
                     key={item.name}
                     onClick={() => {
                       setCategory(item.name);
                       setPage("search");
                     }}
-                    className="rounded-2xl p-5 bg-[#101d30] border border-white/5 hover:border-blue-400/60 hover:bg-blue-900/20 transition text-left"
+                    className="rounded-xl p-3 bg-[#101d30] border border-white/5 hover:border-blue-400/60 transition text-center"
                   >
-                    <div className="text-3xl mb-3">
+                    <div className="text-2xl mb-2">
                       {item.icon}
                     </div>
-                    <div className="font-bold">{item.name}</div>
+
+                    <div className="text-[9px] font-bold">
+                      {item.label}
+                    </div>
                   </button>
+
                 ))}
+
               </div>
             </section>
 
-            {/* MOVIES */}
-            <section className="mt-12">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold">
+            {/* NEW MOVIES */}
+            <section className="mt-6">
+
+              <div className="flex justify-between items-center mb-3">
+                <h2 className="text-base font-bold">
                   หนังมาใหม่
                 </h2>
+
                 <button
                   onClick={() => setPage("search")}
-                  className="text-blue-400 text-sm"
+                  className="text-blue-400 text-[10px]"
                 >
                   ดูทั้งหมด →
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+              <div className="grid grid-cols-3 gap-3">
+
                 {movies.map((movie) => (
                   <MovieCard
                     key={movie.title}
@@ -264,8 +290,10 @@ export default function Home() {
                     }}
                   />
                 ))}
+
               </div>
             </section>
+
           </>
         )}
 
@@ -273,16 +301,18 @@ export default function Home() {
         {page === "search" && (
           <section className="min-h-[650px]">
 
-            <h2 className="text-3xl font-black mb-2">
+            <h2 className="text-2xl font-black mb-2">
               ค้นหาภาพยนตร์
             </h2>
 
-            <p className="text-gray-500 mb-7">
+            <p className="text-gray-500 text-xs mb-5">
               ค้นพบภาพยนตร์เรื่องโปรดของคุณ
             </p>
 
-            <div className="relative mb-7">
-              <span className="absolute left-5 top-3 text-xl text-blue-400">
+            {/* SEARCH INPUT */}
+            <div className="relative mb-5">
+
+              <span className="absolute left-4 top-3 text-xl text-blue-400">
                 ⌕
               </span>
 
@@ -290,16 +320,20 @@ export default function Home() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="ค้นหาชื่อภาพยนตร์..."
-                className="w-full bg-[#101d30] border border-white/10 rounded-2xl py-4 pl-14 pr-5 outline-none focus:border-blue-500"
+                className="w-full bg-[#101d30] border border-white/10 rounded-xl py-3 pl-12 pr-4 text-xs outline-none focus:border-blue-500"
               />
+
             </div>
 
-            <div className="flex gap-2 overflow-x-auto pb-4 mb-6">
+            {/* CATEGORY FILTER */}
+            <div className="flex gap-2 overflow-x-auto pb-3 mb-4 scrollbar-hide">
+
               {categories.map((item) => (
+
                 <button
                   key={item}
                   onClick={() => setCategory(item)}
-                  className={`px-5 py-2 rounded-full whitespace-nowrap text-sm transition ${
+                  className={`px-4 py-2 rounded-full whitespace-nowrap text-[10px] transition ${
                     category === item
                       ? "bg-blue-600 text-white"
                       : "bg-[#152238] text-gray-400 hover:bg-blue-900"
@@ -307,29 +341,85 @@ export default function Home() {
                 >
                   {item}
                 </button>
+
               ))}
+
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            {/* MOVIE LIST */}
+            <div className="space-y-3">
+
               {filteredMovies.map((movie) => (
-                <MovieCard
+
+                <div
                   key={movie.title}
-                  movie={movie}
-                  favorite={favorites.includes(movie.title)}
-                  onFavorite={() => toggleFavorite(movie.title)}
-                  onClick={() => {
-                    setSelectedMovie(movie);
-                    setPage("detail");
-                  }}
-                />
+                  className="flex gap-3 bg-[#101d30] p-2 rounded-xl border border-white/5"
+                >
+
+                  <button
+                    onClick={() => {
+                      setSelectedMovie(movie);
+                      setPage("detail");
+                    }}
+                  >
+                    <img
+                      src={movie.image}
+                      alt={movie.title}
+                      className="w-[95px] h-[95px] object-cover rounded-lg"
+                    />
+                  </button>
+
+                  <div className="flex-1 min-w-0">
+
+                    <h3 className="font-bold text-xs mt-1">
+                      {movie.title}
+                    </h3>
+
+                    <p className="text-[10px] mt-2">
+                      <span className="text-yellow-400">
+                        ★ {movie.rating}
+                      </span>
+
+                      <span className="text-gray-400">
+                        {" "} | {movie.year}
+                      </span>
+                    </p>
+
+                    <p className="text-[9px] text-gray-400 mt-2 leading-4 line-clamp-2">
+                      {movie.description}
+                    </p>
+
+                    <button
+                      onClick={() => {
+                        setSelectedMovie(movie);
+                        setPage("detail");
+                      }}
+                      className="text-blue-400 text-[9px] mt-2"
+                    >
+                      ดูรายละเอียด →
+                    </button>
+
+                  </div>
+
+                  <button
+                    onClick={() => toggleFavorite(movie.title)}
+                    className="text-lg self-start p-1"
+                  >
+                    {favorites.includes(movie.title) ? "♥" : "♡"}
+                  </button>
+
+                </div>
+
               ))}
+
             </div>
 
             {filteredMovies.length === 0 && (
-              <p className="text-center text-gray-500 py-20">
+              <p className="text-center text-gray-500 py-20 text-sm">
                 ไม่พบภาพยนตร์ที่ค้นหา
               </p>
             )}
+
           </section>
         )}
 
@@ -339,67 +429,84 @@ export default function Home() {
 
             <button
               onClick={() => setPage("home")}
-              className="text-blue-400 mb-6"
+              className="text-blue-400 text-xs mb-5"
             >
               ← กลับหน้าหลัก
             </button>
 
-            <div className="relative h-[300px] md:h-[450px] rounded-3xl overflow-hidden">
+            <div className="relative h-[250px] rounded-2xl overflow-hidden">
+
               <img
                 src={selectedMovie.image}
                 alt={selectedMovie.title}
                 className="w-full h-full object-cover"
               />
+
               <div className="absolute inset-0 bg-gradient-to-t from-[#030914] to-transparent" />
 
-              <button className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-blue-600/90 text-3xl shadow-xl shadow-blue-600/40 hover:scale-110 transition">
+              <button
+                onClick={() => alert("Prototype: ตัวอย่างการเล่นวิดีโอ")}
+                className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-blue-600/90 text-2xl shadow-xl shadow-blue-600/40"
+              >
                 ▶
               </button>
+
             </div>
 
-            <div className="mt-7">
-              <h2 className="text-3xl md:text-5xl font-black mb-4">
+            <div className="mt-5">
+
+              <h2 className="text-2xl font-black mb-3">
                 {selectedMovie.title}
               </h2>
 
-              <div className="flex gap-4 text-sm text-gray-400 mb-5">
+              <div className="flex gap-3 text-xs text-gray-400 mb-4">
+
                 <span className="text-yellow-400">
                   ★ {selectedMovie.rating}
                 </span>
+
                 <span>{selectedMovie.year}</span>
+
                 <span>{selectedMovie.genre}</span>
+
               </div>
 
-              <p className="text-gray-300 leading-8 max-w-2xl mb-7">
+              <p className="text-gray-300 text-xs leading-7 mb-6">
                 {selectedMovie.description}
               </p>
 
               <button
                 onClick={() => toggleFavorite(selectedMovie.title)}
-                className="px-7 py-3 rounded-full bg-blue-600 hover:bg-blue-500 transition"
+                className="px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-xs transition"
               >
                 {favorites.includes(selectedMovie.title)
                   ? "♥ เพิ่มในรายการโปรดแล้ว"
                   : "♡ เพิ่มในรายการโปรด"}
               </button>
+
             </div>
+
           </section>
         )}
 
         {/* FAVORITES PAGE */}
         {page === "saved" && (
           <section className="min-h-[600px]">
-            <h2 className="text-3xl font-black mb-3">
+
+            <h2 className="text-2xl font-black mb-3">
               รายการโปรด ♥
             </h2>
-            <p className="text-gray-500 mb-8">
+
+            <p className="text-gray-500 text-xs mb-6">
               ภาพยนตร์ที่คุณบันทึกไว้
             </p>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
+            <div className="grid grid-cols-3 gap-3">
+
               {movies
                 .filter((movie) => favorites.includes(movie.title))
                 .map((movie) => (
+
                   <MovieCard
                     key={movie.title}
                     movie={movie}
@@ -410,15 +517,32 @@ export default function Home() {
                       setPage("detail");
                     }}
                   />
+
                 ))}
+
             </div>
 
             {favorites.length === 0 && (
               <div className="text-center py-24 text-gray-500">
-                <div className="text-5xl mb-4">♡</div>
-                ยังไม่มีภาพยนตร์ในรายการโปรด
+
+                <div className="text-5xl mb-4">
+                  ♡
+                </div>
+
+                <p className="text-sm">
+                  ยังไม่มีภาพยนตร์ในรายการโปรด
+                </p>
+
+                <button
+                  onClick={() => setPage("home")}
+                  className="mt-5 text-blue-400 text-xs"
+                >
+                  กลับไปเลือกภาพยนตร์ →
+                </button>
+
               </div>
             )}
+
           </section>
         )}
 
@@ -426,42 +550,85 @@ export default function Home() {
         {page === "profile" && (
           <section className="max-w-xl mx-auto min-h-[600px]">
 
-            <div className="bg-[#101d30] border border-white/10 rounded-3xl p-8 text-center">
-              <div className="w-24 h-24 mx-auto rounded-full border-4 border-blue-500 overflow-hidden mb-4">
+            {/* USER PROFILE */}
+            <div className="bg-[#101d30] border border-white/10 rounded-2xl p-5 text-center">
+
+              <div className="w-20 h-20 mx-auto rounded-full border-4 border-blue-500 overflow-hidden mb-3">
+
                 <img
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300"
                   alt="Profile"
                   className="w-full h-full object-cover"
                 />
+
               </div>
 
-              <h2 className="text-2xl font-bold">Siranya</h2>
-              <p className="text-gray-500 text-sm mt-1">
-                Member of MovieHub
+              <h2 className="text-xl font-bold">
+                Siranya
+              </h2>
+
+              <p className="text-gray-500 text-xs mt-1">
+                👑 Member of MovieHub
               </p>
 
-              <div className="grid grid-cols-3 gap-3 mt-8">
-                <div className="bg-[#192b44] rounded-2xl p-4">
-                  <div className="text-2xl text-blue-400">▶</div>
-                  <p className="font-bold mt-2">24</p>
-                  <p className="text-xs text-gray-500">รับชม</p>
+              {/* STATISTICS */}
+              <div className="grid grid-cols-3 gap-2 mt-6">
+
+                <div className="bg-[#192b44] rounded-xl p-3">
+
+                  <div className="text-xl text-blue-400">
+                    ▶
+                  </div>
+
+                  <p className="font-bold text-sm mt-2">
+                    24
+                  </p>
+
+                  <p className="text-[9px] text-gray-500">
+                    รับชม
+                  </p>
+
                 </div>
 
-                <div className="bg-[#192b44] rounded-2xl p-4">
-                  <div className="text-2xl text-blue-400">♥</div>
-                  <p className="font-bold mt-2">{favorites.length}</p>
-                  <p className="text-xs text-gray-500">รายการโปรด</p>
+                <div className="bg-[#192b44] rounded-xl p-3">
+
+                  <div className="text-xl text-blue-400">
+                    ♥
+                  </div>
+
+                  <p className="font-bold text-sm mt-2">
+                    {favorites.length}
+                  </p>
+
+                  <p className="text-[9px] text-gray-500">
+                    รายการโปรด
+                  </p>
+
                 </div>
 
-                <div className="bg-[#192b44] rounded-2xl p-4">
-                  <div className="text-2xl text-blue-400">◷</div>
-                  <p className="font-bold mt-2">48 ชม.</p>
-                  <p className="text-xs text-gray-500">เวลารับชม</p>
+                <div className="bg-[#192b44] rounded-xl p-3">
+
+                  <div className="text-xl text-blue-400">
+                    ◷
+                  </div>
+
+                  <p className="font-bold text-sm mt-2">
+                    48 ชม.
+                  </p>
+
+                  <p className="text-[9px] text-gray-500">
+                    เวลารับชม
+                  </p>
+
                 </div>
+
               </div>
+
             </div>
 
-            <div className="mt-7 bg-[#101d30] border border-white/10 rounded-3xl p-5">
+            {/* PROFILE MENU */}
+            <div className="mt-5 bg-[#101d30] border border-white/10 rounded-2xl p-4">
+
               {[
                 "♡ รายการโปรด",
                 "◷ ประวัติการรับชม",
@@ -469,25 +636,41 @@ export default function Home() {
                 "♧ ช่วยเหลือและคำถามที่พบบ่อย",
                 "ⓘ เกี่ยวกับ MovieHub",
               ].map((item) => (
+
                 <button
                   key={item}
                   onClick={() => {
-                    if (item.includes("รายการโปรด")) setPage("saved");
+                    if (item.includes("รายการโปรด")) {
+                      setPage("saved");
+                    }
                   }}
-                  className="w-full flex justify-between py-4 border-b border-white/5 text-gray-300 hover:text-blue-400 transition"
+                  className="w-full flex justify-between py-4 border-b border-white/5 text-gray-300 text-xs hover:text-blue-400 transition"
                 >
                   {item}
                   <span>›</span>
                 </button>
+
               ))}
+
             </div>
+
+            <button
+              onClick={() => setPage("home")}
+              className="w-full mt-4 rounded-full bg-[#192b44] border border-white/10 py-3 text-xs"
+            >
+              ⇥ ออกจากระบบ
+            </button>
+
           </section>
         )}
 
         {/* BOTTOM NAVIGATION */}
-        <nav className="fixed bottom-0 left-0 right-0 z-50 bg-[#07111f]/95 backdrop-blur-xl border-t border-white/10">
-          <div className="max-w-xl mx-auto flex justify-around py-3">
+        <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] z-50 bg-[#07111f]/95 backdrop-blur-xl border-t border-white/10">
+
+          <div className="flex justify-around py-3">
+
             {navItems.map((item) => (
+
               <button
                 key={item.id}
                 onClick={() => setPage(item.id)}
@@ -497,29 +680,79 @@ export default function Home() {
                     : "text-gray-500 hover:text-white"
                 }`}
               >
-                <span className="text-2xl">{item.icon}</span>
-                <span className="text-[10px]">{item.label}</span>
+
+                <span className="text-xl leading-5">
+                  {item.icon}
+                </span>
+
+                <span className="text-[9px]">
+                  {item.label}
+                </span>
+
                 {page === item.id && (
                   <span className="w-5 h-0.5 bg-blue-400 rounded-full" />
                 )}
+
               </button>
+
             ))}
+
           </div>
+
         </nav>
 
-        <div className="h-24" />
+        <div className="h-10" />
 
         {/* FOOTER */}
-        <footer className="text-center text-gray-600 text-xs py-5">
+        <footer className="text-center text-gray-600 text-[10px] py-5">
+
           © 2026 MovieHub. All Rights Reserved.
-          <p className="mt-2">Your Movie Experience Starts Here.</p>
+
+          <p className="mt-2">
+            Your Movie Experience Starts Here.
+          </p>
+
         </footer>
 
       </div>
+
+      {/* MOVIE CARD STYLE */}
+      <style jsx global>{`
+        * {
+          box-sizing: border-box;
+        }
+
+        html {
+          background: #030914;
+        }
+
+        body {
+          margin: 0;
+          background: #030914;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+
+        .scrollbar-hide {
+          scrollbar-width: none;
+        }
+
+        button {
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        img {
+          user-select: none;
+        }
+      `}</style>
+
     </main>
   );
 }
 
+/* MOVIE CARD COMPONENT */
 function MovieCard({
   movie,
   favorite,
@@ -531,9 +764,13 @@ function MovieCard({
   onFavorite: () => void;
   onClick: () => void;
 }) {
+
   return (
+
     <div className="group min-w-0">
-      <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#101d30]">
+
+      <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[#101d30]">
+
         <img
           src={movie.image}
           alt={movie.title}
@@ -544,36 +781,44 @@ function MovieCard({
 
         <button
           onClick={onFavorite}
-          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur text-xl hover:bg-blue-600 transition"
+          className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/50 backdrop-blur text-base hover:bg-blue-600 transition"
         >
           {favorite ? "♥" : "♡"}
         </button>
 
         <button
           onClick={onClick}
-          className="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-400 shadow-lg transition"
+          className="absolute bottom-2 right-2 w-7 h-7 rounded-full bg-blue-600 hover:bg-blue-400 shadow-lg transition text-[10px]"
         >
           ▶
         </button>
 
-        <div className="absolute bottom-3 left-3">
-          <span className="text-yellow-400 text-xs">
+        <div className="absolute bottom-2 left-2">
+
+          <span className="text-yellow-400 text-[9px]">
             ★ {movie.rating}
           </span>
+
         </div>
+
       </div>
 
       <button
         onClick={onClick}
-        className="text-left mt-3 w-full"
+        className="text-left mt-2 w-full"
       >
-        <h3 className="font-bold text-sm group-hover:text-blue-400 transition truncate">
+
+        <h3 className="font-bold text-[10px] group-hover:text-blue-400 transition truncate">
           {movie.title}
         </h3>
-        <p className="text-gray-500 text-xs mt-1">
+
+        <p className="text-gray-500 text-[9px] mt-1">
           {movie.year} · {movie.genre}
         </p>
+
       </button>
+
     </div>
+
   );
 }
