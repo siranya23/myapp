@@ -44,7 +44,7 @@ const movies: Movie[] = [
     duration: "1h 36m",
     country: "ต่างประเทศ",
     type: "Movie",
-    image: "https://image.tmdb.org/t/p/w500/4JpH9j8j2z9a1Yx3m0v7n5.jpg",
+    image: "https://www.disney.co.th/movies/inside-out-2.jpg",
     description: "ไรลีย์เติบโตขึ้นและต้องพบกับอารมณ์ใหม่ ๆ ที่เข้ามาเปลี่ยนแปลงชีวิต",
   },
   {
